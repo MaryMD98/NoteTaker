@@ -28,8 +28,8 @@ app.get('/', (req,res) =>
     res.sendFile(path.join(__dirname, '/public/index.html'))
 );
 
-// GET Route for pages
-app.get('/page', (req,res) => 
+// GET Route for notes
+app.get('/notes', (req,res) => 
     res.sendFile(path.join(__dirname, '/public/notes.html'))
 );
 
