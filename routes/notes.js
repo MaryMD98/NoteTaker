@@ -20,14 +20,15 @@ notes.post('/', (req,res) => {
             note_id = uuidv4(),
         };
         // read and append the new note
-
+        readAndAppend(newNote,testSAVEfile);
         // send response to
         const response = {
             status: 'success',
             body: newNote,
         };
-        res.json(`Diagnostic information added 🔧`);
-    } else {res.json(`Error adding the new note, please try again`);}
+        res.status(200).json(response);
+        console.log(`Diagnostic information added 🔧`);
+    } else {res.status(400).json(`Error adding the new note, please try again`);}
 });
 // notes.delete();
 
