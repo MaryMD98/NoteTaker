@@ -52,8 +52,10 @@ const deleteNote = (id) =>
 
 const renderActiveNote = () => {
   hide(saveNoteBtn);
-
-  if (activeNote.id) {
+console.log("inside the render active note");///** added by Maribel//
+console.log(activeNote);///** added by Maribel//
+/// updated the name of id used on the ack end to display one single note
+  if (activeNote.note_id) { ///** added by Maribel//
     noteTitle.setAttribute('readonly', true);
     noteText.setAttribute('readonly', true);
     noteTitle.value = activeNote.title;
@@ -98,6 +100,9 @@ const handleNoteDelete = (e) => {
 // Sets the activeNote and displays it
 const handleNoteView = (e) => {
   e.preventDefault();
+  ///** added by Maribel
+  //* e.target.parentElement.get atribute has the information sent from the server 
+  //  it grabbed only the id clicked by the user and sent back the note
   activeNote = JSON.parse(e.target.parentElement.getAttribute('data-note'));
   renderActiveNote();
 };

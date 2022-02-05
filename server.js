@@ -33,8 +33,13 @@ app.get('/notes', (req,res) =>
     res.sendFile(path.join(__dirname, '/public/notes.html'))
 );
 
+// // GET Route for notes
+// app.get('/notes/:note_id', (req,res) => 
+//     res.sendFile(path.join(__dirname, '/public/notes.html'))
+// );
+
 // Fallback route for when a user attempts to visit routes that don't exist
-app.get('*', (req,res) => res.setDefaultEncoding(`make a GET reques in insomnia to ${PORT}`));
+//app.get('*', (req,res) => res.setDefaultEncoding(`make a GET reques in insomnia to ${PORT}`));
 
 app.listen(PORT, () => 
     console.log(`APP listening to requests at http://localhost:${PORT} 🏎️`)

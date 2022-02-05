@@ -33,24 +33,20 @@ notes.post('/', (req,res) => {
         console.log(`Diagnostic information added 🔧`);
     } else {res.status(400).json(`Error adding the new note, please try again`);}
 });
-// Post route to read wih id number
-notes.post('/:note_id', (req,res) => {
+// Get route to read wih id number
+notes.get('/:note_id', (req,res) => {
     // saving the note id requested to read and make changes
     const oldNOTE_id = req.params.note_id;
 
     readFromFile('./db/test.json').then((data) => JSON.parse(data)).then((json) =>{
         // make a copy of the tip to be read
         const result = json.filter((note) => note.note_id === oldNOTE_id);
-
+        console.log("this is in the result when grabbing the note id");
+        console.log(result); 
+        res.json(result);
         // Respond POST id reqquest
-      res.json(`Note ${oldNOTE_id} has been Updated 🗑️`);
+    //   res.json(`Note ${oldNOTE_id} has been Updated 🗑️`);
     });
-
-    const oldNOte = {
-
-    }
-
-    
 });
 // notes.delete();
 
