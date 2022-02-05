@@ -4,11 +4,13 @@ const testSAVEfile = require('../db/test.json');
 const fs = require('fs');
 const util = require('util');
 
-notes.get('/', (req,res) =>{ res.json(testSAVEfile)});
+notes.get('/', (req,res) => {
+    readFromFile('./db/test.json').then((data) => res.json(JSON.parse(data)))
+//    res.json(testSAVEfile)}
+});
 
 // POST Route for submitting note
 notes.post('/', (req,res) => {
-    console.log(req.body);
     // destructuring assignment for the items in req.body
     const {title, text} = req.body;
     // if all the required properties are present 
@@ -17,11 +19,11 @@ notes.post('/', (req,res) => {
         const newNote = {
             title,
             text,
-            note_id: uuidv4(),
-            // note_id: Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1),
+            // note_id: uuidv4(),
+            note_id: Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1),
         };
         // read and append the new note
-        readAndAppend(newNote,'../db/test.json');
+        readAndAppend(newNote,'./db/test.json');
         // send response to
         const response = {
             status: 'success',
@@ -30,6 +32,25 @@ notes.post('/', (req,res) => {
         res.status(200).json(response);
         console.log(`Diagnostic information added 🔧`);
     } else {res.status(400).json(`Error adding the new note, please try again`);}
+});
+// Post route to read wih id number
+notes.post('/:note_id', (req,res) => {
+    // saving the note id requested to read and make changes
+    const oldNOTE_id = req.params.note_id;
+
+    readFromFile('./db/test.json').then((data) => JSON.parse(data)).then((json) =>{
+        // make a copy of the tip to be read
+        const result = json.filter((note) => note.note_id === oldNOTE_id);
+
+        // Respond POST id reqquest
+      res.json(`Note ${oldNOTE_id} has been Updated 🗑️`);
+    });
+
+    const oldNOte = {
+
+    }
+
+    
 });
 // notes.delete();
 
