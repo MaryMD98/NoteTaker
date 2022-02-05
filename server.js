@@ -34,7 +34,11 @@ app.get('/notes', (req,res) =>
 );
 
 // Fallback route for when a user attempts to visit routes that don't exist
-app.get('*', (req,res) => res.setDefaultEncoding(`make a GET reques in insomnia to ${PORT}`));
+app.get('*', (req,res) => 
+    res.sendFile(path.join(__dirname, '/public/index.html'))
+);
+
+//(req,res) => res.setDefaultEncoding(`make a GET reques in insomnia to ${PORT}`));
 
 app.listen(PORT, () => 
     console.log(`APP listening to requests at http://localhost:${PORT} 🏎️`)

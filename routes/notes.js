@@ -2,7 +2,7 @@ const notes = require('express').Router();
 const fs = require('fs');
 const util = require('util');
 
-const testSAVEfile = './db/test.json';
+const testSAVEfile = './db/test.json';// seed file used only for testing
 const SAVEfile = './db/db.json'; 
 
 // ** GET ROUTE
@@ -13,14 +13,14 @@ notes.get('/', (req,res) => {
 
 // ** GET ROUTE
 // ** route to read a note by calling its id number
-notes.get('/:note_id', (req,res) => {
+notes.get('/:id', (req,res) => {
     // saving the note id requested to read 
-    const oldNOTE_id = req.params.note_id;
+    const oldNOTE_id = req.params.id;
     // read funtion to call the file where notes are stored and filter the id number
     console.log(`Note with id ${oldNOTE_id} was called to be read 📖`);
     readFromFile(SAVEfile).then((data) => JSON.parse(data)).then((json) =>{
         // filter throught the file to serch for the matching id
-        const result = json.filter((note) => note.note_id === oldNOTE_id);
+        const result = json.filter((note) => note.id === oldNOTE_id);
         // once the id is found, send the result back to the user
         // validate id => first check if the id trying to read exists
         return result.length>0 
@@ -40,7 +40,7 @@ notes.post('/', (req,res) => {
         const newNote = {
             title,
             text,
-            note_id: Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1),
+            id: Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1),
         };
         // read and append the new note
         readAndAppend(newNote,SAVEfile);
@@ -56,17 +56,17 @@ notes.post('/', (req,res) => {
 
 // ** DELETE ROUTE
 // ** route will delete the note by usinf the corresponding id
-notes.delete('/:note_id', (req,res) =>{
-    const deleteNote = req.params.note_id;
+notes.delete('/:id', (req,res) =>{
+    const deleteNote = req.params.id;
 
     readFromFile(SAVEfile).then((data) => JSON.parse(data)).then((json) =>{
         console.log(`Note with ID ${deleteNote} on delete route 🗑️`);
         // DeleteID will validate if the ID to be deleted exists
-        const DeleteID = json.filter((note) => note.note_id === deleteNote);
+        const DeleteID = json.filter((note) => note.id === deleteNote);
         // validate ID - if id exists then run the delete process
         if(DeleteID.length > 0) {
             // Array noteTOsave with all the notes except the one to be deleted
-            const noteTOsave = json.filter((note) => note.note_id !== deleteNote);
+            const noteTOsave = json.filter((note) => note.id !== deleteNote);
             // save the array to the filesystem in .json file
             writeToFile(SAVEfile,noteTOsave);
             // respond to the Delete request

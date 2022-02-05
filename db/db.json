@@ -1,17 +1,17 @@
 [
     {
-        "title": "Test Title",
-        "text": "Test text",
-        "note_id": "5201"
-    },
-    {
         "title": "grocery list",
         "text": "hello \napples\noranges\nwatermelon\nbread\nfish",
-        "note_id": "a07e"
+        "id": "a07e"
     },
     {
         "title": "Names of cats",
         "text": "nino\ntygro\npinino\nluna\nwally",
-        "note_id": "ff27"
+        "id": "ff27"
+    },
+    {
+        "title": "testing the title",
+        "text": "testing the message box",
+        "id": "8e8e"
     }
 ]

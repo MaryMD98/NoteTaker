@@ -55,7 +55,7 @@ const renderActiveNote = () => {
 console.log("inside the render active note");///** added by Maribel//
 console.log(activeNote);///** added by Maribel//
 /// updated the name of id used on the ack end to display one single note
-  if (activeNote.note_id) { ///** added by Maribel//
+  if (activeNote.id) { 
     noteTitle.setAttribute('readonly', true);
     noteText.setAttribute('readonly', true);
     noteTitle.value = activeNote.title;
@@ -85,9 +85,9 @@ const handleNoteDelete = (e) => {
   e.stopPropagation();
 
   const note = e.target;
-  const noteId = JSON.parse(note.parentElement.getAttribute('data-note')).note_id;///** added by Maribel//
+  const noteId = JSON.parse(note.parentElement.getAttribute('data-note')).id;
 
-  if (activeNote.note_id === noteId) {///** added by Maribel//
+  if (activeNote.id === noteId) {
     activeNote = {};
   }
 
