@@ -37,12 +37,12 @@ notes.post('/', (req,res) => {
 });
 
 // ** GET ROUTE
-// route to read a note by calling its id number
+// ** route to read a note by calling its id number
 notes.get('/:note_id', (req,res) => {
     // saving the note id requested to read 
     const oldNOTE_id = req.params.note_id;
     // read funtion to call the file where notes are stored and filter the id number
-    readFromFile('./db/test.json').then((data) => JSON.parse(data)).then((json) =>{
+    readFromFile(testSAVEfile).then((data) => JSON.parse(data)).then((json) =>{
         // filter throught the file to serch for the matching id
         const result = json.filter((note) => note.note_id === oldNOTE_id);
         // once the id is found, send the result back to the user
@@ -52,7 +52,9 @@ notes.get('/:note_id', (req,res) => {
     });
 });
 
-// notes.delete();
+// ** DELETE ROUTE
+// ** route will delete the note by usinf the corresponding id
+notes.delete();
 
 ///***********************************************/////
 ///** Functions to read and write to the file ***//////
