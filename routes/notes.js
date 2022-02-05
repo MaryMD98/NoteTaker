@@ -3,7 +3,7 @@ const fs = require('fs');
 const util = require('util');
 
 const testSAVEfile = './db/test.json';
-const SAVEfile = '../db/db.json'; 
+const SAVEfile = './db/db.json'; 
 
 // ** GET ROUTE
 // ** homepage route to display the saved notes on .json file
