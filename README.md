@@ -36,9 +36,16 @@ To run tests, run the following command
 This application lets the user write, save and delete notes. 
 
 ## Screenshot of Readme generator:
+Creating note:
 
 ![image one of creating note](./screenshot/Screenshot1.png)
+
+Saving note:
+
 ![image two of saving note](./screenshot/Screenshot2.png)
+
+Deleting note:
+
 ![image three of deleting note](./screenshot/Screenshot3.png)
 
 ## [License](#license)
