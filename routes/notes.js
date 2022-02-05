@@ -17,10 +17,11 @@ notes.post('/', (req,res) => {
         const newNote = {
             title,
             text,
-            note_id = uuidv4(),
+            note_id: uuidv4(),
+            // note_id: Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1),
         };
         // read and append the new note
-        readAndAppend(newNote,testSAVEfile);
+        readAndAppend(newNote,'../db/test.json');
         // send response to
         const response = {
             status: 'success',
