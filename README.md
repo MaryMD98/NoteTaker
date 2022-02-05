@@ -37,9 +37,9 @@ This application lets the user write, save and delete notes.
 
 ## Screenshot of Readme generator:
 
-![image one of creating note](./Screenshot/Screenshot1.png)
-![image two of saving note](./Screenshot/Screenshot2.png)
-![image three of deleting note](./Screenshot/Screenshot3.png)
+![image one of creating note](./screenshot/Screenshot1.png)
+![image two of saving note](./screenshot/Screenshot2.png)
+![image three of deleting note](./screenshot/Screenshot3.png)
 
 ## [License](#license)
 
