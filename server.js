@@ -8,8 +8,8 @@ const app = express();
 
 // custom middlware to display the info in a cyan color
 const middleware = (req, res, next) => {
-    const cyan = '\x1b[35m';
-    console.info(`📙 ${cyan}${req.method} request to ${req.path}`);
+    const cyan = '\x1b[32m';
+    console.info(`📗 ${cyan}${req.method} request to ${req.path}`);
     next();
 };
 
