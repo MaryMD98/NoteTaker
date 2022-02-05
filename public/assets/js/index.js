@@ -85,9 +85,11 @@ const handleNoteDelete = (e) => {
   e.stopPropagation();
 
   const note = e.target;
-  const noteId = JSON.parse(note.parentElement.getAttribute('data-note')).id;
+  const noteId = JSON.parse(note.parentElement.getAttribute('data-note')).note_id;///** added by Maribel//
+ console.log("this is inside e.target.parentElement");///** added by Maribel//
+ console.log(e.target.parentElement);///** added by Maribel//
 
-  if (activeNote.id === noteId) {
+  if (activeNote.note_id === noteId) {///** added by Maribel//
     activeNote = {};
   }
 
