@@ -22,7 +22,10 @@ notes.get('/:note_id', (req,res) => {
         // filter throught the file to serch for the matching id
         const result = json.filter((note) => note.note_id === oldNOTE_id);
         // once the id is found, send the result back to the user
-        res.status(200).json(result);
+        // validate id => first check if the id trying to read exists
+        return result.length>0 
+                    ? res.status(200).json(result) 
+                    : res.status(400).json(`Note with id ${oldNOTE_id} does not exists ❌`)
     });
 });
 
@@ -48,7 +51,7 @@ notes.post('/', (req,res) => {
         };
         res.status(200).json(response);
         console.log(`New Note was added 📝`);
-    } else {res.status(400).json(`Error adding the new note, please try again`);}
+    } else {res.status(400).json(`Error adding the new note, please fill out the title and text area`);}
 });
 
 // ** DELETE ROUTE
@@ -57,19 +60,28 @@ notes.delete('/:note_id', (req,res) =>{
     const deleteNote = req.params.note_id;
 
     readFromFile(testSAVEfile).then((data) => JSON.parse(data)).then((json) =>{
-        // Array noteTOsave with all the notes except the one to be deleted
-        const noteTOsave = json.filter((note) => note.note_id !== deleteNote);
-        // save the array to the filesystem in .json file
-        writeToFile(testSAVEfile,noteTOsave);
-        // respond to the Delete request
-        res.status(200).json(`Note with ID ${deleteNote} has been deleted 🗑️`);
-        console.log(`Note with ID ${deleteNote} has been deleted 🗑️`);
+        console.log(`Note with ID ${deleteNote} on delete route 🗑️`);
+        // DeleteID will validate if the ID to be deleted exists
+        const DeleteID = json.filter((note) => note.note_id === deleteNote);
+        // validate ID - if id exists then run the delete process
+        if(DeleteID.length > 0) {
+            // Array noteTOsave with all the notes except the one to be deleted
+            const noteTOsave = json.filter((note) => note.note_id !== deleteNote);
+            // save the array to the filesystem in .json file
+            writeToFile(testSAVEfile,noteTOsave);
+            // respond to the Delete request
+            res.status(200).json(`Note with ID ${deleteNote} has been deleted 🗑️`);
+        } else {
+            // then the id does not exists
+            res.status(400).json(`Note with id ${deleteNote} does not exists ❌`);
+        }
     });
 });
 
-///***********************************************/////
-///** Functions to read and write to the file ***//////
-///***********************************************/////
+///***********************************************************//////
+///******   Functions to read and write to the file   ********//////
+///** these functions were used in the bootcamp activities ***//////
+///***********************************************************//////
 /*** Function Promise  to read from file  *///
 const readFromFile = util.promisify(fs.readFile);
 
