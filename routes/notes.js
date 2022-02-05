@@ -8,7 +8,7 @@ const SAVEfile = '../db/db.json';
 // ** GET ROUTE
 // ** homepage route to display the saved notes on .json file
 notes.get('/', (req,res) => {
-    readFromFile(testSAVEfile).then((data) => res.status(200).json(JSON.parse(data)))
+    readFromFile(SAVEfile).then((data) => res.status(200).json(JSON.parse(data)))
 });
 
 // ** GET ROUTE
@@ -18,7 +18,7 @@ notes.get('/:note_id', (req,res) => {
     const oldNOTE_id = req.params.note_id;
     // read funtion to call the file where notes are stored and filter the id number
     console.log(`Note with id ${oldNOTE_id} was called to be read 📖`);
-    readFromFile(testSAVEfile).then((data) => JSON.parse(data)).then((json) =>{
+    readFromFile(SAVEfile).then((data) => JSON.parse(data)).then((json) =>{
         // filter throught the file to serch for the matching id
         const result = json.filter((note) => note.note_id === oldNOTE_id);
         // once the id is found, send the result back to the user
@@ -43,7 +43,7 @@ notes.post('/', (req,res) => {
             note_id: Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1),
         };
         // read and append the new note
-        readAndAppend(newNote,testSAVEfile);
+        readAndAppend(newNote,SAVEfile);
         // send response to user that note was aded succesfully
         const response = {
             status: 'success',
@@ -59,7 +59,7 @@ notes.post('/', (req,res) => {
 notes.delete('/:note_id', (req,res) =>{
     const deleteNote = req.params.note_id;
 
-    readFromFile(testSAVEfile).then((data) => JSON.parse(data)).then((json) =>{
+    readFromFile(SAVEfile).then((data) => JSON.parse(data)).then((json) =>{
         console.log(`Note with ID ${deleteNote} on delete route 🗑️`);
         // DeleteID will validate if the ID to be deleted exists
         const DeleteID = json.filter((note) => note.note_id === deleteNote);
@@ -68,7 +68,7 @@ notes.delete('/:note_id', (req,res) =>{
             // Array noteTOsave with all the notes except the one to be deleted
             const noteTOsave = json.filter((note) => note.note_id !== deleteNote);
             // save the array to the filesystem in .json file
-            writeToFile(testSAVEfile,noteTOsave);
+            writeToFile(SAVEfile,noteTOsave);
             // respond to the Delete request
             res.status(200).json(`Note with ID ${deleteNote} has been deleted 🗑️`);
         } else {
