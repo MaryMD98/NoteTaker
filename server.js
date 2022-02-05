@@ -8,8 +8,8 @@ const app = express();
 
 // custom middlware to display the info in a cyan color
 const middleware = (req, res, next) => {
-    const cyan = '\x1b[36m';
-    console.info(`📘 ${cyan}${req.method} request to ${req.path}`);
+    const cyan = '\x1b[35m';
+    console.info(`📙 ${cyan}${req.method} request to ${req.path}`);
     next();
 };
 
@@ -33,13 +33,8 @@ app.get('/notes', (req,res) =>
     res.sendFile(path.join(__dirname, '/public/notes.html'))
 );
 
-// // GET Route for notes
-// app.get('/notes/:note_id', (req,res) => 
-//     res.sendFile(path.join(__dirname, '/public/notes.html'))
-// );
-
 // Fallback route for when a user attempts to visit routes that don't exist
-//app.get('*', (req,res) => res.setDefaultEncoding(`make a GET reques in insomnia to ${PORT}`));
+app.get('*', (req,res) => res.setDefaultEncoding(`make a GET reques in insomnia to ${PORT}`));
 
 app.listen(PORT, () => 
     console.log(`APP listening to requests at http://localhost:${PORT} 🏎️`)

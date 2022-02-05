@@ -1,7 +1,22 @@
 [
     {
-        "title": "Test Title",
-        "text": "Test text",
-        "note_id": "d965"
+        "title": "grocery list",
+        "text": "hello \napples\noranges\nwatermelon\nbread\nfish",
+        "note_id": "a07e"
+    },
+    {
+        "title": "Supernatural",
+        "text": "Actors:\nJensel Ackes\nJared Padelecki",
+        "note_id": "af53"
+    },
+    {
+        "title": "Shinhwa",
+        "text": "Eric\nMinwoo\nDongwan\nHyesung\nJun Jin\nAndy",
+        "note_id": "9f35"
+    },
+    {
+        "title": "test code",
+        "text": "testing the  text box",
+        "note_id": "7c8f"
     }
 ]
