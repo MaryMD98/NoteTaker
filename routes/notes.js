@@ -1,53 +1,57 @@
-const notes = require('express').Router();
-const testSAVEfile = require('../db/test.json');
-const SAVEfile = require('../db/test.json');  
+const notes = require('express').Router(); 
 const fs = require('fs');
 const util = require('util');
 
+const testSAVEfile = './db/test.json';
+const SAVEfile = '../db/db.json'; 
+
+// ** GET ROUTE
+// ** homepage route to display the saved notes on .json file
 notes.get('/', (req,res) => {
-    readFromFile('./db/test.json').then((data) => res.json(JSON.parse(data)))
-//    res.json(testSAVEfile)}
+    readFromFile(testSAVEfile).then((data) => res.status(200).json(JSON.parse(data)))
 });
 
-// POST Route for submitting note
+// ** POST ROUTE
+// ** route to create new notes and add them on the json file
 notes.post('/', (req,res) => {
     // destructuring assignment for the items in req.body
     const {title, text} = req.body;
     // if all the required properties are present 
     if (title && text){
-        // variable for the object we will save
+        // variables for the object we will save, need to add random id
         const newNote = {
             title,
             text,
-            // note_id: uuidv4(),
             note_id: Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1),
         };
         // read and append the new note
-        readAndAppend(newNote,'./db/test.json');
-        // send response to
+        readAndAppend(newNote,testSAVEfile);
+        // send response to user that note was aded succesfully
         const response = {
             status: 'success',
             body: newNote,
         };
         res.status(200).json(response);
-        console.log(`Diagnostic information added 🔧`);
+        console.log(`New Note was added 📝`);
     } else {res.status(400).json(`Error adding the new note, please try again`);}
 });
-// Get route to read wih id number
-notes.get('/:note_id', (req,res) => {
-    // saving the note id requested to read and make changes
-    const oldNOTE_id = req.params.note_id;
 
+// ** GET ROUTE
+// route to read a note by calling its id number
+notes.get('/:note_id', (req,res) => {
+    // saving the note id requested to read 
+    const oldNOTE_id = req.params.note_id;
+    // read funtion to call the file where notes are stored and filter the id number
     readFromFile('./db/test.json').then((data) => JSON.parse(data)).then((json) =>{
-        // make a copy of the tip to be read
+        // filter throught the file to serch for the matching id
         const result = json.filter((note) => note.note_id === oldNOTE_id);
-        console.log("this is in the result when grabbing the note id");
-        console.log(result); 
+        // once the id is found, send the result back to the user
         res.json(result);
-        // Respond POST id reqquest
+        console.log(`Note id ${oldNOTE_id} was called to be read 📖`);
     //   res.json(`Note ${oldNOTE_id} has been Updated 🗑️`);
     });
 });
+
 // notes.delete();
 
 ///***********************************************/////
